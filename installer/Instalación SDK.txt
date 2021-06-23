@@ -1,0 +1,5 @@
+Copiar los archivos en la carpeta System32 (si es de 64 bits el SO en SysWOW64).
+
+Ejecutar el comando: regsvr32 ~\system32\zkemkeeper.dll 
+
+en modo administrador.
