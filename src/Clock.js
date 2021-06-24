@@ -18,16 +18,17 @@ class Clock {
         this.pathLib = path.resolve(__dirname, '../lib/Clock.exe');
     }
 
-    getAttendents(dir = "") {
+    getAttendents() {
         return new Promise((resolve, reject) => {
             try {
+                let dir = path.join(__dirname, './result');
                 // crear dir
                 if (!fs.existsSync(dir)) fs.mkdirSync(dir);
                 let filename = `${uid(8)}.json`
                 let pathAbsolute = path.join(dir, filename);
                 execSync(`${this.pathLib} ${this.ip} ${this.commands.attendents} "${pathAbsolute}"`)
                 let { total, assistencias, message } = require(pathAbsolute);
-                fs.rmdirSync(dir, { force: true, recursive: true });
+                fs.rmSync(pathAbsolute);
                 if (Array.isArray(assistencias)) return resolve({ total, assistencias });
                 // generar error
                 new Error(message)
